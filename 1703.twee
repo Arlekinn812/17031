@@ -1,0 +1,267 @@
+:: StoryTitle
+1703
+
+
+:: StoryData
+{
+  "ifid": "FF842B13-EE9E-4CAC-93A8-1E3B5BFD556F",
+  "format": "SugarCube",
+  "format-version": "2.37.3",
+  "start": "prologue",
+  "zoom": 1
+}
+
+
+:: \ next {"position":"650,900","size":"100,100"}
+
+
+
+:: 1st part ans {"position":"650,650","size":"100,100"}
+
+<div class="password-scene">
+
+    <!-- Твоя картинка -->
+    <img
+        src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/notebook.png"
+        class="password-image"
+        alt="Зашифрованная записка"
+    >
+
+    <!-- Окошко поверх картинки -->
+    <form id="password-form" class="password-panel">
+
+        <label for="password-input">
+            Введите расшифровку:
+        </label>
+
+        <input
+            id="password-input"
+            type="text"
+            placeholder="Ваш ответ..."
+            autocomplete="off"
+            spellcheck="false"
+        >
+
+        <button type="submit">
+            Проверить
+        </button>
+
+        <p id="password-message" aria-live="polite"></p>
+
+        <div id="password-next" style="display:none">
+            [[Продолжить ->office]]
+        </div>
+
+    </form>
+</div>
+
+<<done>>
+<<script>>
+(function () {
+    const correctHash =
+        "b84be9159e825078c1f7ca73abd6549fe35c2f2f64c891fa32b50fec58fbdc88";
+
+    const form = document.getElementById("password-form");
+    const input = document.getElementById("password-input");
+    const message = document.getElementById("password-message");
+    const next = document.getElementById("password-next");
+
+    async function sha256(text) {
+        const data = new TextEncoder().encode(text);
+
+        const buffer = await crypto.subtle.digest(
+            "SHA-256", data
+        );
+
+        return Array.from(new Uint8Array(buffer))
+            .map(b => b.toString(16).padStart(2, "0"))
+            .join("");
+    }
+
+    function showSuccess() {
+        message.textContent = "Верно! Записка расшифрована.";
+        message.style.color = "#28643a";
+        next.style.display = "block";
+        input.disabled = true;
+        form.querySelector("button").disabled = true;
+    }
+
+    if (State.variables.noteSolved) {
+        showSuccess();
+    }
+
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const answer = input.value.trim().normalize("NFC");
+
+        if (!answer) {
+            message.textContent = "Введите ответ.";
+            return;
+        }
+
+        if (!window.crypto || !crypto.subtle) {
+            message.textContent =
+                "Проверка недоступна. Откройте игру через HTTPS.";
+            return;
+        }
+
+        try {
+            const hash = await sha256(answer);
+
+            if (hash === correctHash) {
+                State.variables.noteSolved = true;
+                showSuccess();
+            } else {
+                message.textContent = "Неверная расшифровка.";
+                message.style.color = "#a52b2b";
+            }
+        } catch (error) {
+            message.textContent = "Ошибка проверки ответа.";
+            console.error(error);
+        }
+    });
+})();
+<</script>>
+<</done>>
+
+
+:: 1st part cond {"position":"650,525","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_03.png"
+     class="comic-image"
+     alt="Условие первой загадки">
+
+<div class="button-1703">
+    [[Продолжить ->1st part ans]]
+</div>
+
+
+:: bar {"position":"625,375","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_02.png"
+     class="comic-image"
+     alt="Посиделка в баре">
+
+<div class="button-1703">
+    [[Продолжить ->1st part cond]]
+</div>
+
+
+:: office {"position":"650,775","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_04.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить -> next]]
+</div>
+
+
+:: prologue {"position":"625,250","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_01.png"
+     class="comic-image"
+     alt="История Матвея Кидзина">
+
+<div class="button-1703">
+    [[Продолжить ->bar]]
+</div>
+
+
+:: StoryStylesheet [stylesheet]
+html, body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #000;
+}
+
+#ui-bar {
+    display: none !important;
+}
+
+#story {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.passage {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.comic-image {
+    display: block;
+    width: 100vw !important;
+    max-width: none !important;
+    height: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+}
+
+/* Полностью убираем боковую панель */
+#ui-bar,
+#ui-bar-toggle {
+    display: none !important;
+}
+
+/* Убираем отступ, зарезервированный под панель */
+html,
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+#story {
+    margin-left: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    transform: none !important;
+}
+
+#passages {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+.passage {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+}
+
+.button-1703 {
+    width:  min(90vw, 650px);
+    aspect-ratio: 4 / 1;
+    margin: 25px auto;
+    background-image: url("https://raw.githubusercontent.com/Arlekinn812/17031/main/images/button_1703.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-1703 a {
+    color: #e8d5b0 !important;
+    text-decoration: none !important;
+    font-family: Georgia, serif;
+    font-size: clamp(16px, 2.2vw, 25px);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 15px 60px;
+    transition: 0.25s;
+}
+
+.button-1703 a:hover {
+    color: #ffffff !important;
+    text-shadow: 0 0 10px #c9a66b;
+    transform: scale(1.04);
+}
