@@ -16,35 +16,27 @@
 
 
 
-:: 1st part ans {"position":"650,650","size":"100,100"}
-
+:: 1st part ans {"position":"525,650","size":"100,100"}
+<<nobr>>
 <div class="password-scene">
 
-    <!-- Твоя картинка -->
-    <img
-        src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/notebook.png"
-        class="password-image"
-        alt="Зашифрованная записка"
-    >
+    <img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/book.png"
+         class="password-image"
+         alt="Зашифрованная записка">
 
-    <!-- Окошко поверх картинки -->
     <form id="password-form" class="password-panel">
 
         <label for="password-input">
             Введите расшифровку:
         </label>
 
-        <input
-            id="password-input"
-            type="text"
-            placeholder="Ваш ответ..."
-            autocomplete="off"
-            spellcheck="false"
-        >
+        <input id="password-input"
+               type="text"
+               placeholder="Ваш ответ..."
+               autocomplete="off"
+               spellcheck="false">
 
-        <button type="submit">
-            Проверить
-        </button>
+        <button type="submit">Проверить</button>
 
         <p id="password-message" aria-live="polite"></p>
 
@@ -54,6 +46,7 @@
 
     </form>
 </div>
+<</nobr>>
 
 <<done>>
 <<script>>
@@ -146,7 +139,7 @@
 </div>
 
 
-:: office {"position":"650,775","size":"100,100"}
+:: office {"position":"525,800","size":"100,100"}
 <img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_04.png"
      class="comic-image"
      alt="enter to office">
@@ -167,77 +160,67 @@
 
 
 :: StoryStylesheet [stylesheet]
+
+/* =========================================
+   1. ОСНОВНЫЕ НАСТРОЙКИ SUGARCUBE
+   ========================================= */
+
 html, body {
     margin: 0 !important;
     padding: 0 !important;
     background: #000;
+    width: 100%;
+    min-height: 100%;
 }
 
-#ui-bar {
-    display: none !important;
-}
-
-#story {
-    width: 100% !important;
-    max-width: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.passage {
-    width: 100% !important;
-    max-width: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-.comic-image {
-    display: block;
-    width: 100vw !important;
-    max-width: none !important;
-    height: auto !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: none !important;
-}
-
-/* Полностью убираем боковую панель */
+/* Убираем боковую панель */
 #ui-bar,
 #ui-bar-toggle {
     display: none !important;
 }
 
-/* Убираем отступ, зарезервированный под панель */
-html,
-body {
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
+/* Убираем стандартные отступы SugarCube */
 #story {
-    margin-left: 0 !important;
+    margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;
     max-width: none !important;
     transform: none !important;
 }
 
-#passages {
-    margin: 0 !important;
-    padding: 0 !important;
-    width: 100% !important;
-}
-
+#passages,
 .passage {
     margin: 0 !important;
     padding: 0 !important;
     width: 100% !important;
+    max-width: none !important;
 }
 
+
+/* =========================================
+   2. ОБЫЧНЫЕ КОМИКСЫ
+   ========================================= */
+
+.comic-image {
+    display: block;
+    width: 100%;
+    max-width: none;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+
+/* =========================================
+   3. КНОПКА ПРОДОЛЖЕНИЯ
+   ========================================= */
+
 .button-1703 {
-    width:  min(90vw, 650px);
+    width: min(90vw, 650px);
     aspect-ratio: 4 / 1;
     margin: 25px auto;
+
     background-image: url("https://raw.githubusercontent.com/Arlekinn812/17031/main/images/button_1703.png");
     background-size: 100% 100%;
     background-position: center;
@@ -251,11 +234,13 @@ body {
 .button-1703 a {
     color: #e8d5b0 !important;
     text-decoration: none !important;
+
     font-family: Georgia, serif;
     font-size: clamp(16px, 2.2vw, 25px);
     letter-spacing: 2px;
     text-transform: uppercase;
     text-align: center;
+
     padding: 15px 60px;
     transition: 0.25s;
 }
@@ -264,4 +249,194 @@ body {
     color: #ffffff !important;
     text-shadow: 0 0 10px #c9a66b;
     transform: scale(1.04);
+}
+
+
+/* =========================================
+   4. КАРТИНКА С ЗАГАДКОЙ НА ВЕСЬ ЭКРАН
+   ========================================= */
+
+.password-scene {
+    position: relative;
+
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+
+    max-width: none;
+    margin: 0;
+    padding: 0;
+
+    overflow: hidden;
+}
+
+.password-image {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: fill;
+
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+
+/* =========================================
+   5. ПОЛЕ ВВОДА ПАРОЛЯ
+   ========================================= */
+
+
+.password-panel {
+    position: absolute;
+
+    /* Положение на листе блокнота */
+    top: 54%;
+    left: 76%;
+    bottom: auto;
+
+    transform: translate(-50%, -19px);
+
+    width: 35%;
+    max-width: none;
+    height: auto;
+    box-sizing: border-box;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 120px;
+    align-items: center;
+    column-gap: 12px;
+    row-gap: 8px;
+
+    padding: 0;
+    margin: 0;
+
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    z-index: 2;
+}
+
+
+/* Скрытая подпись */
+.password-panel label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+
+/* =========================================
+   6. ПРОЗРАЧНАЯ СТРОКА ВВОДА
+   ========================================= */
+
+
+.password-panel input {
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 4px 8px;
+    margin: 0;
+
+    background: transparent !important;
+    color: #29170f !important;
+
+    border: none !important;
+    border-radius: 0;
+    box-shadow: none !important;
+
+    font-family: Georgia, serif;
+    font-size: clamp(12px, 1.5vw, 22px);
+    outline: none;
+}
+
+.password-panel input::placeholder {
+    color: rgba(60, 35, 20, 0.55);
+}
+
+.password-panel input:focus {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+
+/* =========================================
+   7. КНОПКА "ПРОВЕРИТЬ"
+   ========================================= */
+
+
+.password-panel button[type="submit"] {
+    width: 120px;
+    min-width: 120px;
+    height: 36px;
+
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+
+    background: rgba(70, 40, 25, 0.12);
+    color: #29170f;
+
+    border: 1px solid #5a3825;
+    border-radius: 4px;
+
+    font-family: Georgia, serif;
+    font-size: 15px;
+    white-space: nowrap;
+
+    cursor: pointer;
+    justify-self: end;
+}
+
+.password-panel button[type="submit"]:hover {
+    background: rgba(70, 40, 25, 0.25);
+}
+
+
+/* =========================================
+   8. СООБЩЕНИЯ О РЕЗУЛЬТАТЕ
+   ========================================= */
+
+#password-message {
+    grid-column: 1 / -1;
+
+    margin: 0;
+    padding: 0;
+
+    text-align: center;
+    font-size: 14px;
+    text-shadow: 0 1px 3px black;
+}
+
+#password-message:empty {
+    display: none;
+}
+
+
+/* =========================================
+   9. ПЕРЕХОД ПОСЛЕ РЕШЕНИЯ
+   ========================================= */
+
+#password-next {
+    grid-column: 1 / -1;
+    text-align: center;
+    margin-top: 8px;
+}
+
+#password-next a {
+    color: #f2d38a;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+#password-next a:hover {
+    color: white;
+    text-decoration: underline;
 }
