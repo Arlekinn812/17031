@@ -166,6 +166,16 @@
 </div>
 
 
+:: backdoor {"position":"750,1675","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_27.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->sec_room]]
+</div>
+
+
 :: bar {"position":"775,250","size":"100,100"}
 <img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_02.png"
      class="comic-image"
@@ -182,7 +192,17 @@
      alt="enter to office">
 
 <div class="button-1703">
-    [[Продолжить ->zhigul]]
+    [[Продолжить ->out_of_box]]
+</div>
+
+
+:: cafe {"position":"500,1675","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_26.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->backdoor]]
 </div>
 
 
@@ -234,6 +254,10 @@
 <div class="button-1703">
     [[Продолжить ->qr_cond]]
 </div>
+
+
+:: final {"position":"1200,1875","size":"100,100"}
+
 
 
 :: freedom {"position":"550,1250","size":"100,100"}
@@ -446,9 +470,6 @@
     </a>
 
 </div>
-<div class="button-1703">
-    [[Продолжить ->letter1703]]
-</div>
 
 
 :: natasha {"position":"525,1450","size":"100,100"}
@@ -478,6 +499,26 @@
 
 <div class="button-1703">
     [[Продолжить ->assignment]]
+</div>
+
+
+:: office_cams {"position":"1100,1650","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_29.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->final]]
+</div>
+
+
+:: out_of_box {"position":"975,1450","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_25.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->zhigul]]
 </div>
 
 
@@ -1002,6 +1043,165 @@
 </div>
 
 
+:: sec_room {"position":"925,1675","size":"100,100"}
+<<nobr>>
+<div class="password-scene" style="height: auto; overflow: visible;">
+    <img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_28.png"
+         class="comic-image"
+         alt="enter to office">
+    <a href="https://disk.yandex.ru/d/v66_ICTn-39T3w"
+       target="_blank"
+       rel="noopener noreferrer"
+       class="image-link"
+       style="
+           --link-top: 76.5%;
+           --link-left: 52%;
+           --link-size: 36px;
+           --link-color: #29170f;
+       ">
+        https://disk.yandex.ru/d/v66_ICTn-39T3w
+    </a>
+
+    <!-- Поле ввода с кнопкой -->
+    <form id="intro11-form"
+          class="password-panel"
+          style="
+              --panel-top: 58%;
+              --panel-left: 54%;
+              --panel-width: 52%;
+
+              --input-height: 40px;
+              --input-font-size: 36px;
+              --input-offset-y: 0px;
+              --input-color: #ffffff;
+
+              --button-width: 140px;
+              --button-height: 60px;
+              --button-offset-y: 0px;
+              --button-font-size: 24px;
+
+              --button-background: #32bfcf;
+              --button-color: #ffffff;
+          ">
+
+        <label for="intro11-input">Введите ответ:</label>
+
+        <input id="intro11-input"
+               type="text"
+               placeholder="Ваш ответ..."
+               autocomplete="off"
+               spellcheck="false">
+
+        <button type="submit">Отправить</button>
+
+        <p id="password-message" aria-live="polite"></p>
+
+    </form>
+
+</div>
+<</nobr>>
+
+<<done>>
+
+<<script>>
+(function () {
+    const correctHash =
+        "085ed64d972968df7c575dc7ebc105e77df287bdcef537e9b30a099570031b1d";
+
+    const form = document.getElementById("intro11-form");
+    const input = document.getElementById("intro11-input");
+    const message = document.getElementById("password-message");
+
+    const errorPopup = document.createElement("div");
+    errorPopup.className = "mail-error-popup";
+    errorPopup.setAttribute("role", "alert");
+
+    errorPopup.innerHTML = `
+        <span>Неправильный пароль</span>
+        <button type="button"
+                class="mail-error-close"
+                aria-label="Закрыть уведомление">
+            &times;
+        </button>
+    `;
+
+    form.closest(".password-scene").appendChild(errorPopup);
+
+    // Закрытие уведомления
+    errorPopup.querySelector(".mail-error-close")
+        .addEventListener("click", function () {
+            errorPopup.classList.remove("visible");
+        });
+
+    function showError() {
+        errorPopup.classList.add("visible");
+    }
+
+    // Нормализация ответа
+    function normalizeAnswer(text) {
+        return text
+            .normalize("NFC")
+            .toLowerCase()
+            .replace(/\s+/g, " ")
+            .trim();
+    }
+
+    // Вычисление SHA-256
+    async function sha256(text) {
+        const data = new TextEncoder().encode(text);
+
+        const buffer = await crypto.subtle.digest(
+            "SHA-256", data
+        );
+
+        return Array.from(new Uint8Array(buffer))
+            .map(b => b.toString(16).padStart(2, "0"))
+            .join("");
+    }
+
+    // Проверка ответа
+    form.addEventListener("submit", async function (event) {
+        event.preventDefault();
+
+        const answer = normalizeAnswer(input.value);
+
+        if (!answer) {
+            showError();
+            return;
+        }
+
+        if (!window.crypto || !crypto.subtle) {
+            message.textContent =
+                "Проверка недоступна. Откройте игру через HTTPS.";
+            message.style.color = "#a52b2b";
+            return;
+        }
+
+        try {
+            const hash = await sha256(answer);
+
+            if (hash === correctHash) {
+                // Запоминаем успешное решение
+                State.variables.intro11Solved = true;
+
+                // Сразу переходим на следующий пассаж
+                Engine.play("office_cams");
+            } else {
+                showError();
+            }
+
+        } catch (error) {
+            message.textContent = "Ошибка проверки ответа.";
+            message.style.color = "#a52b2b";
+            console.error(error);
+        }
+    });
+})();
+<</script>>
+<</done>>
+
+
+
 :: underground {"position":"875,850","size":"100,100"}
 <img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_14.png"
      class="comic-image"
@@ -1045,8 +1245,234 @@
 </div>
 
 
-:: zhigul {"position":"925,1475","size":"100,100"}
+:: zhigul {"position":"1150,1450","size":"100,100"}
+<div id="engine-puzzle">
+  <div class="engine-stage" id="engine-stage">
+    <img class="engine-photo" src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/zhigul.png" alt="Моторный отсек с шестью цветными проводами и шестью гнёздами">
+    <div class="instruction-overlay">
+  <img
+    class="instruction-image"
+    src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/mechanic_note.png"
+    alt="Памятка механика"
+  >
+</div>
+    <svg class="engine-lines" id="engine-lines"
+         viewBox="0 0 1672 941" preserveAspectRatio="xMidYMid meet"
+         aria-label="Соединение проводов и гнёзд">
+      <g id="engine-line-paths" aria-hidden="true"></g>
+      <g id="engine-hotspots"></g>
+    </svg>
+  </div>
 
+  <div class="engine-controls">
+    <div class="engine-actions">
+      <span id="engine-count">Подключено: 0/6</span>
+      <span class="engine-message" id="engine-message">Выбери провод, затем гнездо.</span>
+      <button type="button" class="engine-button" id="engine-check">ПОДАТЬ ПИТАНИЕ</button>
+      <button type="button" class="engine-button" id="engine-reset">СБРОС</button>
+      <button type="button" class="engine-button" id="engine-next" hidden>ПРОДОЛЖИТЬ</button>
+    </div>
+  </div>
+</div>
+
+<<script>>
+$(document).one(":passagedisplay", function () {
+  const root = document.getElementById("engine-puzzle");
+  if (!root) return;
+
+  const IMAGE_WIDTH = 1672;
+  const IMAGE_HEIGHT = 941;
+
+  // ЗДЕСЬ МЕНЯЙ x и y, если надо подвинуть точки по исходной картинке.
+  // x — расстояние от ЛЕВОГО края, y — от ВЕРХНЕГО края, в пикселях.
+  const wires = [
+    { x: 660,  y: 440, min: 18, max: 24, color: "#df5546", name: "красный" },
+    { x: 740,  y: 455, min: 30, max: 36, color: "#f0c349", name: "жёлтый" },
+    { x: 847,  y: 486, min: 12, max: 24, color: "#81b675", name: "зелёный" },
+    { x: 925,  y: 467, min: 36, max: 42, color: "#5686db", name: "синий" },
+    { x: 1032, y: 474, min: 12, max: 18, color: "#e08c4d", name: "оранжевый" },
+    { x: 1113, y: 458, min: 24, max: 30, color: "#aa78c6", name: "фиолетовый" }
+  ];
+  const ports = [
+    { x: 1054, y: 610, name: "A", freq: 24 },
+    { x: 1121, y: 610, name: "B", freq: 12 },
+    { x: 1193, y: 610, name: "C", freq: 42 },
+    { x: 1265, y: 610, name: "D", freq: 30 },
+    { x: 1337, y: 610, name: "E", freq: 18 },
+    { x: 1409, y: 610, name: "F", freq: 36 }
+  ];
+
+  const sv = State.variables;
+  if (!Array.isArray(sv.engineLinks) ||
+      sv.engineLinks.length !== wires.length ||
+      sv.engineLinks.some(n => !Number.isInteger(n) || n < -1 || n >= ports.length)) {
+    sv.engineLinks = Array(wires.length).fill(-1);
+    sv.engineSolved = false;
+  }
+
+  const svg = root.querySelector("#engine-lines");
+  svg.setAttribute("viewBox", `0 0 ${IMAGE_WIDTH} ${IMAGE_HEIGHT}`);
+  const lines = root.querySelector("#engine-line-paths");
+  const spots = root.querySelector("#engine-hotspots");
+  const count = root.querySelector("#engine-count");
+  const msg = root.querySelector("#engine-message");
+  const check = root.querySelector("#engine-check");
+  const reset = root.querySelector("#engine-reset");
+  const next = root.querySelector("#engine-next");
+  const NS = "http://www.w3.org/2000/svg";
+  let selected = -1;
+  const wireButtons = [];
+  const portButtons = [];
+
+  function say(text, kind = "") {
+    msg.textContent = text;
+    msg.className = "engine-message" + (kind ? " " + kind : "");
+  }
+
+  function svgEl(name, attrs = {}) {
+    const el = document.createElementNS(NS, name);
+    for (const [key, value] of Object.entries(attrs)) {
+      el.setAttribute(key, String(value));
+    }
+    return el;
+  }
+
+  function hotspot(x, y, label, title, onClick) {
+    const group = svgEl("g", {
+      class: "engine-contact",
+      transform: `translate(${x} ${y})`,
+      tabindex: "0",
+      role: "button",
+      "aria-label": title
+    });
+    const tooltip = svgEl("title");
+    tooltip.textContent = title;
+    const hit = svgEl("circle", { class: "engine-hit", cx: 0, cy: 0, r: 33 });
+    const face = svgEl("circle", { class: "engine-face", cx: 0, cy: 0, r: 23 });
+    const txt = svgEl("text", {
+      class: "engine-label", x: 0, y: 1,
+      "text-anchor": "middle", "dominant-baseline": "middle"
+    });
+    txt.textContent = label;
+    group.append(tooltip, hit, face, txt);
+    group.addEventListener("click", onClick);
+    group.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        onClick();
+      }
+    });
+    spots.appendChild(group);
+    return group;
+  }
+
+  wires.forEach((w, i) => {
+    const btn = hotspot(w.x, w.y, String(i + 1),
+      `Провод ${i + 1} (${w.name}), ${w.min}–${w.max} Гц`, () => {
+        if (sv.engineSolved) return;
+        selected = selected === i ? -1 : i;
+        say(selected < 0 ? "Выбери провод, затем гнездо." :
+          `Выбран провод ${i + 1}: ${w.min}–${w.max} Гц. Теперь выбери гнездо.`);
+        render();
+      });
+    wireButtons.push(btn);
+  });
+
+  ports.forEach((p, j) => {
+    const btn = hotspot(p.x, p.y, p.name,
+      `Гнездо ${p.name}: ${p.freq} Гц`, () => {
+        if (sv.engineSolved) return;
+        if (selected < 0) {
+          say(`Гнездо ${p.name}: ${p.freq} Гц. Сначала выбери провод.`);
+          return;
+        }
+        const links = sv.engineLinks.slice();
+        if (links[selected] === j) {
+          links[selected] = -1;
+        } else {
+          const previous = links.indexOf(j);
+          if (previous !== -1) links[previous] = -1;
+          links[selected] = j;
+        }
+        sv.engineLinks = links;
+        selected = -1;
+        say("Контакт изменён. Для проверки подай питание.");
+        render();
+      });
+    portButtons.push(btn);
+  });
+
+  function drawCable(d, stroke, width, opacity) {
+    const el = svgEl("path", {
+      d, stroke, "stroke-width": width,
+      "stroke-opacity": opacity, "stroke-linecap": "round", fill: "none"
+    });
+    lines.appendChild(el);
+  }
+
+  function drawLines() {
+    lines.replaceChildren();
+    sv.engineLinks.forEach((j, i) => {
+      if (j < 0) return;
+      const w = wires[i], p = ports[j];
+      const d = `M ${w.x} ${w.y} C ${w.x + 25} ${w.y + 95}, ${p.x - 30} ${p.y - 95}, ${p.x} ${p.y}`;
+      drawCable(d, "#090b0c", 16, 0.9);
+      drawCable(d, w.color, 11, 1);
+      drawCable(d, "#fff6db", 2, 0.22);
+    });
+  }
+
+  function render() {
+    const links = sv.engineLinks;
+    wireButtons.forEach((el, i) => {
+      el.classList.toggle("is-selected", i === selected);
+      el.classList.toggle("is-occupied", links[i] !== -1);
+      el.classList.toggle("is-disabled", Boolean(sv.engineSolved));
+      el.setAttribute("aria-disabled", String(Boolean(sv.engineSolved)));
+    });
+    portButtons.forEach((el, j) => {
+      el.classList.toggle("is-occupied", links.includes(j));
+      el.classList.toggle("is-disabled", Boolean(sv.engineSolved));
+      el.setAttribute("aria-disabled", String(Boolean(sv.engineSolved)));
+    });
+    const filled = links.filter(j => j >= 0).length;
+    count.textContent = `Подключено: ${filled}/6`;
+    check.disabled = filled !== 6 || Boolean(sv.engineSolved);
+    next.hidden = !sv.engineSolved;
+    drawLines();
+  }
+
+  check.addEventListener("click", () => {
+    const links = sv.engineLinks;
+    const valid = links.every(j => j >= 0 && j < ports.length) &&
+      new Set(links).size === wires.length &&
+      links.every((j, i) => ports[j].freq >= wires[i].min &&
+                             ports[j].freq <= wires[i].max);
+    if (valid) {
+      sv.engineSolved = true;
+      say("ВСЕ ЦЕПИ ВОССТАНОВЛЕНЫ. ДВИГАТЕЛЬ ЗАПУЩЕН.", "success");
+    } else {
+      say("ОШИБКА ПОДКЛЮЧЕНИЯ. ПРОВЕРЬ ЧАСТОТЫ И ПОПРОБУЙ СНОВА.", "error");
+    }
+    render();
+  });
+
+  reset.addEventListener("click", () => {
+    sv.engineLinks = Array(wires.length).fill(-1);
+    sv.engineSolved = false;
+    selected = -1;
+    say("Все провода отсоединены.");
+    render();
+  });
+
+  next.addEventListener("click", () => {
+    if (sv.engineSolved) Engine.play("cafe");
+  });
+
+  if (sv.engineSolved) say("Все цепи восстановлены.", "success");
+  render();
+});
+<</script>>
 
 
 :: StoryStylesheet [stylesheet]
@@ -1863,3 +2289,150 @@ html, body {
     text-align: center;
 }
 
+
+/* Паззл под капотом. Добавить в Story Stylesheet (SugarCube 2). */
+#engine-puzzle {
+  box-sizing: border-box;
+  width: min(100%, 1500px);
+  margin: 0 auto;
+  color: #f3e7d2;
+  font: 15px/1.45 "Courier New", monospace;
+}
+#engine-puzzle *, #engine-puzzle *::before, #engine-puzzle *::after {
+  box-sizing: border-box;
+}
+#engine-puzzle .engine-stage {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  aspect-ratio: 1672 / 941;
+  isolation: isolate;
+}
+#engine-puzzle .engine-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  border-radius: 8px;
+}
+#engine-puzzle .engine-lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Контакты теперь живут внутри SVG с viewBox 1672x941.
+   Никаких процентов или отдельных пересчётов при resize. */
+#engine-puzzle .engine-lines {
+  pointer-events: auto;
+}
+#engine-puzzle #engine-line-paths {
+  pointer-events: none;
+}
+#engine-puzzle .engine-contact {
+  cursor: pointer;
+  outline: none;
+}
+#engine-puzzle .engine-contact .engine-hit {
+  fill: transparent;
+  stroke: none;
+}
+#engine-puzzle .engine-contact .engine-face {
+  fill: #211b18e6;
+  stroke: #e5c389;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 7px #000);
+}
+#engine-puzzle .engine-contact .engine-label {
+  fill: #fff0d5;
+  font: bold 24px "Courier New", monospace;
+  user-select: none;
+  pointer-events: none;
+}
+#engine-puzzle .engine-contact:hover .engine-face,
+#engine-puzzle .engine-contact:focus .engine-face {
+  fill: #8b4c24;
+  stroke: #ffbf57;
+  stroke-width: 5;
+}
+#engine-puzzle .engine-contact.is-selected .engine-face {
+  fill: #c88124;
+  stroke: #fff4b6;
+  filter: drop-shadow(0 0 14px #ffa83f);
+}
+#engine-puzzle .engine-contact.is-occupied .engine-face {
+  stroke: #9befa3;
+  filter: drop-shadow(0 0 12px #83e68a);
+}
+#engine-puzzle .engine-contact.is-disabled {
+  cursor: default;
+}
+#engine-puzzle .engine-controls {
+  width: min(100%, 1050px);
+  margin: 8px auto 14px;
+  padding: 10px 14px;
+  border: 1px solid #6b5943;
+  border-radius: 8px;
+  background: #242321ef;
+  box-shadow: 0 4px 20px #0008;
+}
+#engine-puzzle .engine-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+#engine-puzzle .engine-button {
+  padding: 8px 12px;
+  border: 1px solid #bb8754;
+  border-radius: 5px;
+  background: #633b27;
+  color: #ffebca;
+  font: bold 13px "Courier New", monospace;
+  cursor: pointer;
+}
+#engine-puzzle .engine-button:hover { background: #98552e; }
+#engine-puzzle .engine-button:disabled { opacity: 0.45; cursor: not-allowed; }
+#engine-puzzle .engine-button[hidden] { display: none; }
+#engine-puzzle .engine-message { flex: 1 1 230px; }
+#engine-puzzle .engine-message.error { color: #ff9393; }
+#engine-puzzle .engine-message.success { color: #a3f3b0; }
+#engine-puzzle .engine-instructions {
+  width: min(100%, 1050px);
+  margin: 0 auto 20px;
+  padding: 10px 14px;
+  border: 1px solid #79694c;
+  border-radius: 7px;
+  background: #2d2822;
+}
+#engine-puzzle .engine-instructions summary {
+  color: #f0c58d;
+  cursor: pointer;
+  font-weight: bold;
+}
+#engine-puzzle .engine-instructions p { margin: 7px 0; }
+#engine-puzzle .engine-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+#engine-puzzle .engine-specs strong { color: #f5bf7b; }
+#engine-puzzle .engine-specs div { margin: 4px 0; }
+@media (max-width: 600px) {
+  #engine-puzzle .engine-specs { grid-template-columns: 1fr; }
+  #engine-puzzle .engine-controls { font-size: 13px; }
+}
+
+.instruction-overlay {
+  position: absolute;
+  left: 2%;
+  top: 47%;
+  width: 40%;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.instruction-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45));
+}
