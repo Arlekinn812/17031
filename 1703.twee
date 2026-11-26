@@ -256,14 +256,8 @@
 </div>
 
 
-:: final30 {"position":"500,1850","size":"100,100"}
-<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_30.png"
-     class="comic-image"
-     alt="enter to office">
+:: final30 {"position":"425,1850","size":"100,100"}
 
-<div class="button-1703">
-    [[Продолжить ->final31]]
-</div>
 
 
 :: final31 {"position":"700,1875","size":"100,100"}
@@ -631,7 +625,7 @@
      alt="enter to office">
 
 <div class="button-1703">
-    [[Продолжить ->final30]]
+    [[Продолжить ->final31]]
 </div>
 
 
