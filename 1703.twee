@@ -357,15 +357,28 @@
 
 
 :: final40 {"position":"625,2275","size":"100,100"}
+<<nobr>>
 <img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_40.png"
      class="comic-image"
      alt="enter to office">
 
 
+<html>
 <div class="quest-note">
-    <h3>https://disk.yandex.ru/d/D7dGwM97an8LKg</h3>
-    Вам же понравилась головоломка с роботами? Нам она тоже понравилась и мы решили сделать такой же пароль для финала!
+    <h3>
+        <a href="https://disk.yandex.ru/d/D7dGwM97an8LKg"
+           target="_blank"
+           rel="noopener noreferrer">
+            Финальный финал
+        </a>
+    </h3>
+    <p>
+        Вам же понравилась головоломка с роботами?
+        Нам она тоже понравилась, и мы решили сделать
+        такой же пароль для финала!
+    </p>
 </div>
+</html>
 
 
 
