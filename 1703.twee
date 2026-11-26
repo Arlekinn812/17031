@@ -256,7 +256,117 @@
 </div>
 
 
-:: final {"position":"1200,1875","size":"100,100"}
+:: final30 {"position":"500,1850","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_30.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->final31]]
+</div>
+
+
+:: final31 {"position":"700,1875","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_31.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->final32]]
+</div>
+
+
+:: final32 {"position":"900,1900","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_32.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->final33]]
+</div>
+
+
+:: final33 {"position":"1075,1925","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_33.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->final34]]
+</div>
+
+
+:: final34 {"position":"450,2050","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_34.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->final35]]
+</div>
+
+
+:: final35 {"position":"650,2075","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_35.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->final36]]
+</div>
+
+
+:: final36 {"position":"800,2100","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_36.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->final37]]
+</div>
+
+
+:: final37 {"position":"925,2125","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_37.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->final38]]
+</div>
+
+
+:: final38 {"position":"1075,2150","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_38.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->final39]]
+</div>
+
+
+:: final39 {"position":"450,2250","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_39.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->final40]]
+</div>
+
+
+:: final40 {"position":"625,2275","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_40.png"
+     class="comic-image"
+     alt="enter to office">
+
+
+<div class="quest-note">
+    <h3>https://disk.yandex.ru/d/D7dGwM97an8LKg</h3>
+    Вам же понравилась головоломка с роботами? Нам она тоже понравилась и мы решили сделать такой же пароль для финала!
+</div>
+
 
 
 
@@ -508,7 +618,7 @@
      alt="enter to office">
 
 <div class="button-1703">
-    [[Продолжить ->final]]
+    [[Продолжить ->final30]]
 </div>
 
 
@@ -2435,4 +2545,33 @@ html, body {
   width: 100%;
   height: auto;
   filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.45));
+}
+
+.quest-note {
+    width: min(90%, 650px);
+    margin: 25px auto;
+    padding: 25px 35px;
+
+    background: #dfc69a;
+    color: #392519;
+
+    border: 1px solid #876a48;
+    border-radius: 3px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.5),
+        inset 0 0 35px rgba(100, 60, 25, 0.15);
+
+    font-family: Georgia, serif;
+    font-size: 18px;
+    line-height: 1.6;
+
+    transform: rotate(-0.4deg);
+}
+
+.quest-note h3 {
+    color: #392519;
+    margin: 0 0 15px;
+    border-bottom: 1px solid #a58a65;
+    padding-bottom: 10px;
 }
