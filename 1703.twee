@@ -206,13 +206,13 @@
 </div>
 
 
-:: camera_found {"position":"500,850","size":"100,100"}
+:: camera_found {"position":"300,825","size":"100,100"}
 <img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_12.png"
      class="comic-image"
      alt="enter to office">
 
 <div class="button-1703">
-    [[Продолжить ->leave]]
+    [[Продолжить ->woman_kill]]
 </div>
 
 
@@ -1359,6 +1359,16 @@
         Яндекс Почта
     </a>
 
+</div>
+
+
+:: woman_kill {"position":"375,975","size":"100,100"}
+<img src="https://raw.githubusercontent.com/Arlekinn812/17031/main/images/intro_125.png"
+     class="comic-image"
+     alt="enter to office">
+
+<div class="button-1703">
+    [[Продолжить ->leave]]
 </div>
 
 
